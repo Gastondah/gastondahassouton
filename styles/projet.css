@@ -246,3 +246,29 @@ footer p {
         font-size: 0.9em;
     }
 }
+
+/* Ajoutez ou modifiez ces règles dans styles/projects.css */
+
+.video-container {
+    position: relative;
+    width: 100%;
+    /* Ratio d'aspect 16:9, ou ajustez selon le format de votre vidéo */
+    padding-bottom: 56.25%; /* (9 / 16) * 100% */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 15px; /* Espace sous la vidéo */
+}
+
+.project-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px; /* Arrondir les coins de la vidéo si vous le souhaitez */
+}
+
+/* Vous pouvez aussi ajouter une taille max pour la carte si la vidéo la rend trop grande */
+/* .project-card {
+    max-width: 400px;
+} */
