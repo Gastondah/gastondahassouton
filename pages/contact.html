@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaston DAHASSOUTON - Contact</title>
+    <link rel="stylesheet" href="../styles/contact.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-content">
+            <div class="logo">DAHASSOUTON M. GASTON</div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">Accueil</a></li>
+                    <li><a href="apropos.html">À propos</a></li>
+                    <li><a href="projet.html">Projets</a></li>
+                    <li><a href="competence.html">Compétences</a></li>
+                    <li><a href="hobbie.html">Hobbies</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="contact-section container">
+            <h2 class="section-title">Vous avez un projet en tête ?<br>N'hésitez pas à me contacter</h2>
+            <form class="contact-form" action="#" method="POST" novalidate>
+                <div class="form-group">
+                    <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+                    <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+                </div>
+                <div class="form-group full-width">
+                    <input type="text" id="sujet" name="sujet" placeholder="Votre sujet" required>
+                </div>
+                <div class="form-group full-width">
+                    <textarea id="message" name="message" rows="7" placeholder="Envoyez votre message ici !" required></textarea>
+                </div>
+                <div id="form-messages" class="form-messages"></div>
+                <button type="submit" class="btn send-btn">Envoyer</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>Designed by Gaston DAHASSOUTON with HTML CSS JS</p>
+        <p>Tous droits réservés - 2025</p>
+    </footer>
+
+    <script src="../js/contact.js"></script> </body>
+</html>
