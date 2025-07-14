@@ -1,0 +1,234 @@
+/* Variables CSS pour les couleurs */
+:root {
+    --primary-color: #20c997; /* Vert / Cyan */
+    --header-bg-color: #1a1a1a; /* Noir profond pour l'en-tête */
+    --text-color: #333;
+    --background-color: #f4f4f4; /* Couleur de fond principale de la page */
+    --light-text-color: #eee; /* Couleur du texte dans l'en-tête */
+}
+
+/* Styles généraux et Reset de base */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Pour que le body prenne toute la hauteur */
+}
+
+/* Conteneur générique pour centrer le contenu */
+.container {
+    max-width: 1200px; /* Largeur maximale du contenu */
+    margin: 0 auto; /* Centrage horizontal */
+    padding: 0 20px; /* Padding latéral pour éviter que le contenu ne touche les bords */
+}
+
+/* Header */
+.main-header {
+    background-color: var(--header-bg-color);
+    padding: 15px 0;
+    color: var(--light-text-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.main-nav ul li {
+    margin-left: 30px;
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: var(--light-text-color);
+    font-weight: bold;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
+    color: var(--primary-color);
+}
+
+/* Styles des Boutons */
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 15px 35px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #1a9c7b; /* Un vert plus foncé au survol */
+    transform: translateY(-3px);
+}
+
+/* Pied de page (Footer) */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: auto; /* Pousse le footer vers le bas de la page */
+    background-color: var(--header-bg-color); /* Couleur de l'en-tête pour harmoniser */
+    color: var(--light-text-color);
+    font-size: 0.9em;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+/* Styles spécifiques à la page "À propos" */
+.about-section {
+    padding: 80px 20px; /* Plus de padding pour espacer le contenu */
+    background-color: var(--background-color); /* Couleur de fond de la section */
+}
+
+.section-title {
+    font-size: 3em;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 60px; /* Plus d'espace sous le titre */
+}
+
+.about-content-layout {
+    display: flex;
+    align-items: center; /* Centrer verticalement le texte et l'image */
+    justify-content: space-between;
+    gap: 60px; /* Espacement entre les colonnes */
+    flex-wrap: wrap; /* Permet aux éléments de s'empiler sur petits écrans */
+}
+
+.about-text-content {
+    flex: 2; /* Le texte prend plus de place que l'image */
+    min-width: 300px;
+    text-align: left;
+}
+
+.about-text-content p {
+    font-size: 1.2em; /* Taille de police pour les paragraphes */
+    margin-bottom: 25px; /* Espace entre les paragraphes */
+    color: var(--text-color);
+}
+
+.about-image-content {
+    flex: 1; /* L'image prend moins de place */
+    min-width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-image-content img {
+    width: 250px; /* Taille de l'image de profil */
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--primary-color); /* Bordure comme sur l'image  */
+    box-shadow: 0 0 20px rgba(32, 201, 151, 0.4); /* Ombre légère */
+}
+
+/* Media Queries pour la réactivité */
+@media (max-width: 992px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .main-nav {
+        margin-top: 10px;
+    }
+    .main-nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .main-nav ul li {
+        margin: 5px 10px;
+    }
+
+    .about-content-layout {
+        flex-direction: column; /* Empile les éléments sur petits écrans */
+        text-align: center; /* Centre le texte quand c'est empilé */
+    }
+    .about-text-content,
+    .about-image-content {
+        min-width: unset;
+        width: 100%;
+    }
+    .about-image-content img {
+        margin-top: 30px; /* Espace au-dessus de l'image quand elle est empilée */
+    }
+    .section-title {
+        font-size: 2.5em;
+    }
+    .about-text-content p {
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        padding: 10px 0;
+    }
+    .main-nav ul li {
+        margin: 5px 10px;
+    }
+    .section-title {
+        font-size: 2em;
+        margin-bottom: 40px;
+    }
+    .about-section {
+        padding: 60px 15px;
+    }
+    .about-image-content img {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.5em;
+    }
+    .main-nav ul li {
+        margin: 5px 5px;
+    }
+    .main-nav ul li a {
+        font-size: 0.9em;
+    }
+    .section-title {
+        font-size: 1.8em;
+    }
+    .about-text-content p {
+        font-size: 1em;
+    }
+    .about-image-content img {
+        width: 150px;
+        height: 150px;
+    }
+}

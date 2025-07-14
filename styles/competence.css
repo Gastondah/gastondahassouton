@@ -1,0 +1,243 @@
+/* Variables CSS pour les couleurs */
+:root {
+    --primary-color: #20c997; /* Vert / Cyan */
+    --header-bg-color: #1a1a1a; /* Noir profond pour l'en-tête */
+    --text-color: #333;
+    --background-color: #f4f4f4; /* Couleur de fond principale de la page */
+    --light-text-color: #eee; /* Couleur du texte dans l'en-tête */
+    --card-bg-color: #fff; /* Fond des cartes de compétences */
+    --progress-bar-bg: #e0e0e0; /* Fond gris de la barre de progression */
+}
+
+/* Styles généraux et Reset de base */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Pour que le body prenne toute la hauteur */
+}
+
+/* Conteneur générique pour centrer le contenu */
+.container {
+    max-width: 1200px; /* Largeur maximale du contenu */
+    margin: 0 auto; /* Centrage horizontal */
+    padding: 0 20px; /* Padding latéral pour éviter que le contenu ne touche les bords */
+}
+
+/* Header */
+.main-header {
+    background-color: var(--header-bg-color);
+    padding: 15px 0;
+    color: var(--light-text-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.main-nav ul li {
+    margin-left: 30px;
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: var(--light-text-color);
+    font-weight: bold;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
+    color: var(--primary-color);
+}
+
+/* Styles des Boutons (inclus pour la complétude, même si pas sur cette page) */
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 15px 35px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #1a9c7b; /* Un vert plus foncé au survol */
+    transform: translateY(-3px);
+}
+
+/* Pied de page (Footer) */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: auto; /* Pousse le footer vers le bas de la page */
+    background-color: var(--header-bg-color); /* Couleur de l'en-tête pour harmoniser */
+    color: var(--light-text-color);
+    font-size: 0.9em;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+/* Styles spécifiques à la page "Mes Compétences" */
+.skills-section {
+    padding: 80px 20px;
+    flex: 1; /* Permet à la section de prendre l'espace restant */
+}
+
+.section-title {
+    font-size: 3em;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Deux colonnes, flexibles */
+    gap: 40px;
+    justify-content: center; /* Centrer les grilles si moins de 2 */
+}
+
+.skills-category-card {
+    background-color: var(--card-bg-color);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: left; /* Le texte des compétences est aligné à gauche */
+}
+
+.category-title {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    text-align: center; /* Titre de la catégorie centré */
+    margin-bottom: 30px;
+}
+
+.skill-item {
+    margin-bottom: 25px; /* Espacement entre chaque compétence */
+}
+
+.skill-name {
+    display: block; /* Pour que le nom soit sur sa propre ligne */
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 8px; /* Espacement entre le nom et la barre */
+}
+
+.progress-bar-container {
+    width: 100%;
+    background-color: var(--progress-bar-bg);
+    border-radius: 5px;
+    height: 12px; /* Hauteur de la barre de progression */
+    overflow: hidden; /* Assure que le remplissage ne dépasse pas */
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    /* La largeur sera définie inline dans le HTML pour chaque compétence (ex: style="width: 90%;") */
+    transition: width 0.8s ease-out; /* Animation de la barre */
+}
+
+/* Media Queries pour la réactivité */
+@media (max-width: 992px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .main-nav {
+        margin-top: 10px;
+    }
+    .main-nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .main-nav ul li {
+        margin: 5px 10px;
+    }
+
+    .section-title {
+        font-size: 2.5em;
+        margin-bottom: 40px;
+    }
+    .skills-grid {
+        grid-template-columns: 1fr; /* Une seule colonne sur les petits écrans */
+        gap: 30px;
+    }
+    .skills-category-card {
+        padding: 25px;
+    }
+    .category-title {
+        font-size: 1.6em;
+        margin-bottom: 25px;
+    }
+    .skill-item {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        padding: 10px 0;
+    }
+    .main-nav ul li {
+        margin: 5px 10px;
+    }
+    .section-title {
+        font-size: 2em;
+    }
+    .skills-section {
+        padding: 60px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.5em;
+    }
+    .main-nav ul li {
+        margin: 5px 5px;
+    }
+    .main-nav ul li a {
+        font-size: 0.9em;
+    }
+    .section-title {
+        font-size: 1.8em;
+    }
+    .skills-category-card {
+        padding: 20px;
+    }
+    .category-title {
+        font-size: 1.4em;
+    }
+}

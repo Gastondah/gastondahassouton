@@ -1,0 +1,201 @@
+/* Variables CSS pour les couleurs */
+:root {
+    --primary-color: #20c997; /* Vert / Cyan (couleur du bouton et texte principal) */
+    --header-bg-color: #1a1a1a; /* Noir profond pour l'en-tête */
+    --text-color: #333;
+    --background-color: #f4f4f4; /* Couleur de fond principale de la page */
+    --light-text-color: #eee; /* Couleur du texte dans l'en-tête */
+}
+
+/* Styles généraux */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Pour que le body prenne toute la hauteur */
+}
+
+/* Conteneur générique pour centrer le contenu */
+.container {
+    max-width: 1200px; /* Largeur maximale du contenu */
+    margin: 0 auto; /* Centrage horizontal */
+    padding: 0 20px; /* Padding latéral pour éviter que le contenu ne touche les bords */
+}
+
+/* Header */
+.main-header {
+    background-color: var(--header-bg-color);
+    padding: 15px 0;
+    color: var(--light-text-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--primary-color); /* Couleur du logo comme sur l'image */
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.main-nav ul li {
+    margin-left: 30px;
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: var(--light-text-color);
+    font-weight: bold;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.main-nav ul li a.active {
+    color: var(--primary-color);
+}
+
+/* Section Héro avec Image */
+.hero-section-with-image {
+    flex: 1; /* Permet à cette section de prendre l'espace disponible */
+    display: flex;
+    align-items: center; /* Centrer verticalement le contenu */
+    padding: 60px 0; /* Padding vertical */
+    /* background-color: #fff;  Si vous voulez un fond blanc pour cette section */
+}
+
+.hero-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espacer le texte et l'image */
+    gap: 40px; /* Espace entre les colonnes */
+    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne sur petits écrans */
+}
+
+.hero-text-content {
+    flex: 1; /* Permet de prendre l'espace disponible */
+    min-width: 300px; /* Pour éviter que le texte ne devienne trop étroit */
+    text-align: left; /* Alignement du texte à gauche comme sur l'image */
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 15px 35px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.hero-image-content {
+    flex: 1; /* Permet de prendre l'espace disponible */
+    min-width: 400px; /* Pour éviter que l'image ne devienne trop petite */
+    display: flex; /* Pour centrer l'image si elle est plus petite que son conteneur */
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image-content img {
+    max-width: 100%; /* L'image ne dépasse pas son conteneur */
+    height: auto;
+    display: block; /* Supprime l'espace sous l'image */
+}
+
+/* Media Queries pour la réactivité */
+@media (max-width: 992px) {
+    .hero-layout {
+        flex-direction: column; /* Les éléments s'empilent sur les petits écrans */
+        text-align: center; /* Centrer le texte quand les éléments s'empilent */
+    }
+
+    .hero-text-content,
+    .hero-image-content {
+        min-width: unset; /* Annule le min-width */
+        width: 100%; /* Prend toute la largeur disponible */
+    }
+
+    .hero-text-content h1 {
+        font-size: 2.5em;
+    }
+
+    .main-nav ul li {
+        margin: 0 15px; /* Réduire l'espace entre les éléments de nav */
+    }
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        padding: 10px 0;
+    }
+    .header-content {
+        flex-direction: column; /* Empile le logo et la nav */
+        text-align: center;
+    }
+    .main-nav {
+        margin-top: 10px;
+    }
+    .main-nav ul {
+        justify-content: center;
+    }
+    .main-nav ul li {
+        margin: 0 10px;
+    }
+    .hero-text-content h1 {
+        font-size: 2em;
+    }
+    .btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.5em;
+    }
+    .main-nav ul li {
+        margin: 0 5px;
+    }
+    .main-nav ul li a {
+        font-size: 0.9em;
+    }
+    .hero-text-content h1 {
+        font-size: 1.8em;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+}
+
+/* Pied de page (Footer) */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: auto; /* Pousse le footer vers le bas de la page */
+    background-color: var(--header-bg-color); /* Couleur de l'en-tête pour harmoniser */
+    color: var(--light-text-color);
+    font-size: 0.9em;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+}
+
+footer p {
+    margin: 5px 0;
+}
