@@ -1,45 +1,942 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gaston DAHASSOUTON - Portfolio</title>
-    <link rel="stylesheet" href="styles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gaston DAHASSOUTON — Finance Digitale & Data Financial Technologies</title>
+  <meta name="description" content="Étudiant en Master Finance Digitale à l'ESMT-Dakar. Passionné par la FinTech, l'analyse de données financières et les technologies qui transforment les systèmes financiers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    /* ───────────────────────────────────────
+       DESIGN TOKENS
+    ─────────────────────────────────────── */
+    :root {
+      --ink:     #0e0d0b;
+      --ink2:    #2c2b27;
+      --ink3:    #6b6860;
+      --paper:   #faf9f6;
+      --paper2:  #f3f1ec;
+      --paper3:  #ebe8e1;
+      --accent:  #1b4f8a;   /* bleu finance sobre */
+      --accent2: #c8a84b;   /* or discret */
+      --rule:    #dddad3;
+      --white:   #ffffff;
+      --serif:   'Cormorant Garamond', Georgia, serif;
+      --sans:    'DM Sans', system-ui, sans-serif;
+      --max:     1100px;
+      --ease:    cubic-bezier(.22,1,.36,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--paper2); }
+    ::-webkit-scrollbar-thumb { background: var(--ink3); }
+
+    /* ───────────────────────────────────────
+       NAV
+    ─────────────────────────────────────── */
+    header {
+      position: fixed; top: 0; inset-inline: 0; z-index: 200;
+      background: rgba(250,249,246,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--rule);
+      transition: box-shadow .3s;
+    }
+    header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.07); }
+
+    .nav-wrap {
+      max-width: var(--max); margin: 0 auto;
+      padding: 0 36px; height: 66px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .logo {
+      display: flex; flex-direction: column; line-height: 1.1;
+      text-decoration: none;
+    }
+    .logo-name {
+      font-family: var(--serif); font-size: 1.15rem; font-weight: 500;
+      color: var(--ink); letter-spacing: .01em;
+    }
+    .logo-title {
+      font-size: .65rem; font-weight: 400; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--ink3);
+    }
+
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-size: .77rem; font-weight: 400; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink3); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-btn {
+      font-size: .78rem; font-weight: 500; letter-spacing: .04em;
+      padding: 9px 24px; background: var(--accent); color: var(--white);
+      border-radius: 3px; text-decoration: none; transition: background .2s;
+    }
+    .nav-btn:hover { background: var(--ink); }
+
+    .ham {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .ham span { width: 22px; height: 1.5px; background: var(--ink); display: block; transition: .3s; }
+    .ham.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .ham.open span:nth-child(2) { opacity: 0; }
+    .ham.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mob-menu {
+      display: none; position: fixed; inset: 66px 0 0;
+      background: var(--paper); z-index: 199;
+      flex-direction: column; padding: 44px 36px; gap: 28px;
+      border-top: 1px solid var(--rule);
+    }
+    .mob-menu.open { display: flex; }
+    .mob-menu a { font-size: 1.1rem; color: var(--ink2); text-decoration: none; font-family: var(--serif); font-weight: 400; }
+    .mob-menu a:hover { color: var(--accent); }
+
+    /* ───────────────────────────────────────
+       LAYOUT
+    ─────────────────────────────────────── */
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 36px; }
+    section { padding: 108px 0; }
+    section:nth-child(even) { background: var(--paper2); }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .68rem; font-weight: 500; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+      font-weight: 400; line-height: 1.1; letter-spacing: -.01em;
+      color: var(--ink); margin-bottom: 14px;
+    }
+    h2 em { font-style: italic; color: var(--ink3); }
+
+    .lead {
+      font-size: 1rem; font-weight: 300; color: var(--ink3);
+      max-width: 500px; line-height: 1.8; margin-bottom: 52px;
+    }
+
+    /* Reveal */
+    .r { opacity: 0; transform: translateY(22px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .r.d1 { transition-delay:.1s } .r.d2 { transition-delay:.2s }
+    .r.d3 { transition-delay:.3s } .r.d4 { transition-delay:.4s }
+    .r.vis { opacity: 1; transform: none; }
+
+    /* Buttons */
+    .btn-solid {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .85rem; font-weight: 500; padding: 13px 28px;
+      background: var(--accent); color: var(--white); border-radius: 3px;
+      text-decoration: none; transition: background .2s, transform .2s;
+    }
+    .btn-solid:hover { background: var(--ink); transform: translateY(-1px); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .85rem; font-weight: 400; padding: 13px 28px;
+      border: 1.5px solid var(--rule); color: var(--ink2); border-radius: 3px;
+      text-decoration: none; transition: border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ───────────────────────────────────────
+       HERO
+    ─────────────────────────────────────── */
+    #hero {
+      padding-top: 154px; padding-bottom: 100px;
+      background: var(--paper);
+      position: relative; overflow: hidden;
+    }
+    #hero::after {
+      content: 'FD';
+      position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+      font-family: var(--serif); font-size: 28vw; font-weight: 300;
+      color: rgba(0,0,0,.025); line-height: 1; pointer-events: none;
+      letter-spacing: -.05em;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .72rem; font-weight: 500; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--ink3);
+      border: 1px solid var(--rule); border-radius: 100px;
+      padding: 7px 16px; margin-bottom: 36px;
+      opacity: 0; animation: up .7s .1s var(--ease) forwards;
+    }
+    .badge-dot {
+      width: 7px; height: 7px; background: var(--accent2);
+      border-radius: 50; flex-shrink: 0; border-radius: 50%;
+    }
+
+    .hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(3.4rem, 8vw, 6.8rem);
+      font-weight: 400; line-height: 1.02; letter-spacing: -.02em;
+      max-width: 860px; margin-bottom: 28px;
+      opacity: 0; animation: up .85s .25s var(--ease) forwards;
+    }
+    .hero-h1 em { font-style: italic; color: var(--ink3); }
+
+    .hero-sub {
+      font-size: 1.08rem; font-weight: 300; color: var(--ink3);
+      max-width: 520px; line-height: 1.8; margin-bottom: 44px;
+      opacity: 0; animation: up .85s .4s var(--ease) forwards;
+    }
+
+    .hero-actions {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      opacity: 0; animation: up .85s .55s var(--ease) forwards;
+    }
+
+    .hero-strip {
+      display: flex; gap: 0; flex-wrap: wrap;
+      margin-top: 72px; padding-top: 48px; border-top: 1px solid var(--rule);
+      opacity: 0; animation: up .85s .7s var(--ease) forwards;
+    }
+    .strip-item {
+      flex: 1; min-width: 150px;
+      padding: 0 32px 0 0;
+      border-right: 1px solid var(--rule);
+      margin-right: 32px;
+    }
+    .strip-item:last-child { border-right: none; }
+    .strip-val {
+      font-family: var(--serif); font-size: 2.6rem; font-weight: 400;
+      letter-spacing: -.02em; color: var(--ink); display: block; line-height: 1;
+    }
+    .strip-key {
+      font-size: .7rem; font-weight: 400; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--ink3); margin-top: 7px; display: block;
+    }
+
+    /* ───────────────────────────────────────
+       ABOUT
+    ─────────────────────────────────────── */
+    .about-grid {
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      gap: 80px; align-items: start;
+    }
+    .about-body p {
+      font-size: .96rem; font-weight: 300; color: var(--ink2);
+      line-height: 1.9; margin-bottom: 18px;
+    }
+    .about-body p strong { font-weight: 500; color: var(--ink); }
+
+    .about-table { margin-top: 32px; }
+    .at-row {
+      display: flex; padding: 11px 0;
+      border-bottom: 1px solid var(--rule); font-size: .84rem;
+    }
+    .at-k { width: 130px; flex-shrink: 0; color: var(--ink3); font-weight: 400; }
+    .at-v { color: var(--ink2); font-weight: 300; }
+    .at-v a { color: var(--accent); text-decoration: none; }
+    .at-v a:hover { text-decoration: underline; }
+
+    /* Timeline card */
+    .timeline-card {
+      border: 1px solid var(--rule); border-radius: 8px;
+      padding: 32px; background: var(--white);
+    }
+    section:nth-child(even) .timeline-card { background: var(--paper); }
+    .tc-title {
+      font-size: .68rem; font-weight: 500; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--ink3);
+      margin-bottom: 24px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tl-item { display: flex; gap: 16px; margin-bottom: 0; }
+    .tl-left {
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 4px;
+    }
+    .tl-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--paper3); border: 2px solid var(--accent);
+      flex-shrink: 0;
+    }
+    .tl-line { flex: 1; width: 1px; background: var(--rule); margin-top: 4px; }
+    .tl-right { padding: 0 0 24px; flex: 1; }
+    .tl-item:last-child .tl-right { padding-bottom: 0; }
+    .tl-yr { font-size: .72rem; color: var(--accent); font-weight: 500; margin-bottom: 4px; letter-spacing: .04em; }
+    .tl-name { font-size: .94rem; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+    .tl-org { font-size: .78rem; color: var(--ink3); font-weight: 300; }
+
+    /* ───────────────────────────────────────
+       EXPERTISE (ex-skills)
+    ─────────────────────────────────────── */
+    .expertise-grid {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 14px;
+    }
+    .ex-card {
+      border: 1px solid var(--rule); border-radius: 8px;
+      padding: 26px 22px; background: var(--white);
+      transition: box-shadow .25s, transform .25s var(--ease);
+    }
+    section:nth-child(even) .ex-card { background: var(--paper); }
+    .ex-card:hover { box-shadow: 0 6px 32px rgba(0,0,0,.08); transform: translateY(-3px); }
+    .ex-icon { font-size: 1.3rem; margin-bottom: 14px; display: block; }
+    .ex-cat {
+      font-size: .66rem; font-weight: 500; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--accent3, var(--ink3));
+      margin-bottom: 14px; color: var(--ink3);
+    }
+    .ex-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .ex-list li {
+      font-size: .83rem; font-weight: 300; color: var(--ink2);
+      padding-left: 12px; position: relative;
+    }
+    .ex-list li::before { content: '–'; position: absolute; left: 0; color: var(--rule); }
+
+    /* ───────────────────────────────────────
+       EXPERIENCE
+    ─────────────────────────────────────── */
+    .xp-list { display: flex; flex-direction: column; gap: 16px; }
+    .xp-card {
+      border: 1px solid var(--rule); border-radius: 8px;
+      padding: 28px 32px; background: var(--white);
+      display: grid; grid-template-columns: 120px 1fr;
+      gap: 28px; align-items: start;
+      transition: box-shadow .25s, transform .25s var(--ease);
+    }
+    section:nth-child(even) .xp-card { background: var(--paper); }
+    .xp-card:hover { box-shadow: 0 6px 32px rgba(0,0,0,.07); transform: translateY(-2px); }
+    .xp-period {
+      font-size: .76rem; font-weight: 500; color: var(--accent);
+      letter-spacing: .04em; line-height: 1.5;
+    }
+    .xp-body {}
+    .xp-role { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+    .xp-org { font-size: .82rem; color: var(--ink3); font-weight: 300; margin-bottom: 14px; }
+    .xp-dots { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .xp-dots li {
+      font-size: .84rem; font-weight: 300; color: var(--ink2);
+      padding-left: 14px; position: relative; line-height: 1.6;
+    }
+    .xp-dots li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: .6rem; top: 4px; }
+
+    /* ───────────────────────────────────────
+       PROJETS
+    ─────────────────────────────────────── */
+    .proj-list { display: flex; flex-direction: column; gap: 14px; }
+    .proj-card {
+      border: 1px solid var(--rule); border-radius: 8px;
+      padding: 26px 30px; background: var(--white);
+      display: grid; grid-template-columns: 40px 1fr 24px;
+      gap: 22px; align-items: start;
+      text-decoration: none; cursor: pointer;
+      transition: box-shadow .25s, transform .25s var(--ease);
+    }
+    section:nth-child(even) .proj-card { background: var(--paper); }
+    .proj-card:hover { box-shadow: 0 8px 36px rgba(0,0,0,.09); transform: translateY(-2px); }
+    section:nth-child(even) .proj-card:hover { background: var(--white); }
+
+    .proj-n {
+      font-family: var(--serif); font-size: 1.5rem; font-weight: 400;
+      color: var(--rule); transition: color .2s; padding-top: 2px;
+    }
+    .proj-card:hover .proj-n { color: var(--accent2); }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .ptag {
+      font-size: .67rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase;
+      padding: 3px 10px; background: var(--paper3); color: var(--ink3); border-radius: 2px;
+    }
+    .proj-title { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+    .proj-desc { font-size: .84rem; font-weight: 300; color: var(--ink3); line-height: 1.65; max-width: 580px; }
+    .proj-arrow { font-size: 1rem; color: var(--rule); transition: color .2s, transform .2s; padding-top: 3px; }
+    .proj-card:hover .proj-arrow { color: var(--accent); transform: translate(3px,-3px); }
+
+    /* ───────────────────────────────────────
+       CERTIFICATIONS
+    ─────────────────────────────────────── */
+    .cert-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 14px;
+    }
+    .cert-card {
+      border: 1px solid var(--rule); border-radius: 8px;
+      padding: 22px 22px; background: var(--white);
+      transition: box-shadow .25s;
+    }
+    section:nth-child(even) .cert-card { background: var(--paper); }
+    .cert-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.07); }
+    .cert-yr { font-size: .7rem; color: var(--accent2); font-weight: 500; letter-spacing: .06em; margin-bottom: 7px; }
+    .cert-name { font-size: .9rem; font-weight: 500; color: var(--ink); margin-bottom: 5px; line-height: 1.3; }
+    .cert-org { font-size: .76rem; color: var(--ink3); font-weight: 300; }
+
+    /* ───────────────────────────────────────
+       CONTACT
+    ─────────────────────────────────────── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 72px; align-items: start; }
+    .contact-aside p { font-size: .92rem; font-weight: 300; color: var(--ink3); line-height: 1.85; margin-bottom: 28px; }
+    .ci-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 30px; }
+    .ci-row { display: flex; align-items: flex-start; gap: 14px; }
+    .ci-icon {
+      width: 34px; height: 34px; border: 1px solid var(--rule);
+      border-radius: 6px; display: flex; align-items: center;
+      justify-content: center; font-size: .8rem; flex-shrink: 0;
+      color: var(--ink3);
+    }
+    .ci-lbl { font-size: .68rem; color: var(--ink3); letter-spacing: .06em; margin-bottom: 2px; text-transform: uppercase; }
+    .ci-val { font-size: .88rem; color: var(--ink2); font-weight: 300; }
+    .ci-val a { color: var(--accent); text-decoration: none; }
+
+    .srow { display: flex; gap: 8px; flex-wrap: wrap; }
+    .sbtn {
+      font-size: .76rem; padding: 8px 18px; border: 1.5px solid var(--rule);
+      color: var(--ink3); border-radius: 3px; text-decoration: none;
+      transition: border-color .2s, color .2s;
+    }
+    .sbtn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Form */
+    .cf { display: flex; flex-direction: column; gap: 13px; }
+    .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .fg { display: flex; flex-direction: column; gap: 6px; }
+    .fg label { font-size: .7rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); }
+    .fg input, .fg textarea {
+      font-family: var(--sans); font-size: .9rem; font-weight: 300;
+      padding: 12px 16px; border: 1.5px solid var(--rule); border-radius: 6px;
+      background: var(--white); color: var(--ink); outline: none; transition: border-color .2s; resize: vertical;
+    }
+    section:nth-child(even) .fg input,
+    section:nth-child(even) .fg textarea { background: var(--paper2); }
+    .fg input:focus, .fg textarea:focus { border-color: var(--accent); }
+    .fg textarea { min-height: 110px; }
+    .cf-btn {
+      font-family: var(--sans); font-size: .88rem; font-weight: 500;
+      padding: 13px 30px; background: var(--accent); color: var(--white);
+      border: none; border-radius: 3px; cursor: pointer; width: fit-content;
+      transition: background .2s, transform .2s;
+    }
+    .cf-btn:hover { background: var(--ink); transform: translateY(-1px); }
+    .cf-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .cf-msg { font-size: .82rem; font-weight: 300; padding: 12px 16px; border-radius: 6px; display: none; }
+    .cf-msg.ok { display: block; background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+    .cf-msg.err { display: block; background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+
+    /* ───────────────────────────────────────
+       FOOTER
+    ─────────────────────────────────────── */
+    footer { border-top: 1px solid var(--rule); padding: 30px 0; }
+    .footer-inner {
+      max-width: var(--max); margin: 0 auto; padding: 0 36px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    footer p { font-size: .77rem; color: var(--ink3); font-weight: 300; }
+    footer a { color: var(--ink); text-decoration: none; font-weight: 400; }
+
+    /* ───────────────────────────────────────
+       KEYFRAMES
+    ─────────────────────────────────────── */
+    @keyframes up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+
+    /* ───────────────────────────────────────
+       RESPONSIVE
+    ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav-links, .nav-btn { display: none; }
+      .ham { display: flex; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 44px; }
+      .expertise-grid { grid-template-columns: 1fr 1fr; }
+      .cert-grid { grid-template-columns: 1fr 1fr; }
+      .xp-card { grid-template-columns: 1fr; gap: 8px; }
+      .proj-card { grid-template-columns: 30px 1fr 18px; gap: 14px; padding: 20px; }
+      .cf-row { grid-template-columns: 1fr; }
+      #hero::after { display: none; }
+    }
+    @media (max-width: 580px) {
+      .wrap { padding: 0 20px; }
+      section { padding: 76px 0; }
+      .expertise-grid { grid-template-columns: 1fr; }
+      .cert-grid { grid-template-columns: 1fr; }
+      .hero-strip { gap: 20px; }
+      .strip-item { border-right: none; padding-right: 0; margin-right: 0; min-width: 120px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="container header-content">
-            <div class="logo">DAHASSOUTON M. GASTON</div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html" class="active">Accueil</a></li>
-                    <li><a href="pages/apropos.html">À propos</a></li>
-                    <li><a href="pages/projet.html">Projets</a></li>
-                    <li><a href="pages/competence.html">Compétences</a></li>
-                    <li><a href="pages/hobbie.html">Hobbies</a></li>
-                    <li><a href="pages/contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <main class="hero-section-with-image">
-        <div class="container hero-layout">
-            <div class="hero-text-content">
-                <h4>Je suis Mègbéhou Gaston DAHASSOUTON , Développeur en devenir et Etudiant en Master 1 Transformation Digitale  passionné par l'analyse de données et la machine learning !</h4>
-                <a href="pages/projet.html" class="btn">Voir mes projets</a>
-            </div>
-            <div class="hero-image-content">
-                <img src="img/ordinateur.PNG" alt="Illustration de développeurs web">
-            </div>
+  <!-- NAV -->
+  <header id="hdr">
+    <nav class="nav-wrap">
+      <a class="logo" href="#hero">
+        <span class="logo-name">G. DAHASSOUTON</span>
+        <span class="logo-title">Finance Digitale · Data</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">Profil</a></li>
+        <li><a href="#expertise">Expertise</a></li>
+        <li><a href="#experience">Expérience</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a class="nav-btn" href="#contact">Me contacter</a>
+      <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <div class="mob-menu" id="mob">
+    <a href="#about"          onclick="closeM()">Profil</a>
+    <a href="#expertise"      onclick="closeM()">Expertise</a>
+    <a href="#experience"     onclick="closeM()">Expérience</a>
+    <a href="#projets"        onclick="closeM()">Projets</a>
+    <a href="#certifications" onclick="closeM()">Certifications</a>
+    <a href="#contact"        onclick="closeM()">Contact</a>
+  </div>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section id="hero">
+    <div class="wrap">
+      <p class="hero-badge"><span class="badge-dot"></span>Disponible — Stage & Opportunités</p>
+      <h1 class="hero-h1">
+        Mègbéhou Gaston<br>
+        <em>DAHASSOUTON</em>
+      </h1>
+      <p class="hero-sub">
+        Étudiant en fin de <strong style="font-weight:500;color:var(--ink2)">Master Finance Digitale</strong> à l'ESMT-Dakar.
+        Passionné par la FinTech, l'analyse de données financières et les technologies
+        qui transforment les systèmes financiers.
+      </p>
+      <div class="hero-actions">
+        <a href="cv_stage_gaston.pdf" class="btn-solid" download>↓ &nbsp;Télécharger mon CV</a>
+        <a href="#projets" class="btn-ghost">Voir mes projets →</a>
+      </div>
+      <div class="hero-strip">
+        <div class="strip-item">
+          <span class="strip-val">M2</span>
+          <span class="strip-key">Finance Digitale · ESMT</span>
         </div>
-    </main>
-    <footer>
-        <p>Designed by Gaston DAHASSOUTON with HTML CSS JS</p>
-        <p>Tous droits réservés - 2025</p>
-    </footer>
-    </body>
-     
+        <div class="strip-item">
+          <span class="strip-val">6+</span>
+          <span class="strip-key">Certifications obtenues</span>
+        </div>
+        <div class="strip-item">
+          <span class="strip-val">4+</span>
+          <span class="strip-key">Projets data & dev</span>
+        </div>
+        <div class="strip-item">
+          <span class="strip-val">Dakar</span>
+          <span class="strip-key">Sénégal</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROFIL ══════════ -->
+  <section id="about">
+    <div class="wrap">
+      <span class="eyebrow r">Profil</span>
+      <h2 class="r d1">Finance, Data<br><em>&amp; Transformation digitale</em></h2>
+      <div class="about-grid">
+        <div class="about-body">
+          <p class="r d2">
+            Étudiant en fin de <strong>Master Finance Digitale</strong> à l'ESMT-Dakar, avec un parcours solide
+            en mathématiques informatiques (Licence FAST-UAC, Bénin). Je m'intéresse particulièrement
+            à l'<strong>analyse des données financières</strong>, à la <strong>FinTech</strong>, à la monétique et
+            aux technologies permettant d'améliorer les systèmes financiers.
+          </p>
+          <p class="r d2">
+            J'ai développé des compétences techniques en <strong>data science, machine learning et
+            ingénierie des données</strong> appliqués à la finance, complétées par une maîtrise du
+            développement web Full-Stack (React, Laravel) que j'utilise pour construire
+            des solutions concrètes à fort impact.
+          </p>
+          <p class="r d2">
+            Engagé associativement, j'ai exercé les rôles de <strong>Secrétaire Général</strong> puis
+            <strong>Responsable Partenariats</strong> au Club ISOC-ESMT, et je suis actuellement
+            <strong>Lead Produit & Cas d'usage</strong> au département Projets & Innovation de
+            Data Afrique Hub.
+          </p>
+          <div class="about-table r d3">
+            <div class="at-row"><span class="at-k">Email</span><span class="at-v">gastondahsounton@gmail.com</span></div>
+            <div class="at-row"><span class="at-k">Téléphone</span><span class="at-v">+221 77 265 56 46</span></div>
+            <div class="at-row"><span class="at-k">Localisation</span><span class="at-v">Grand Dakar, Sénégal</span></div>
+            <div class="at-row"><span class="at-k">Portfolio</span><span class="at-v"><a href="https://gastondah.github.io/gastondahassouton/" target="_blank">gastondah.github.io</a></span></div>
+            <div class="at-row"><span class="at-k">Langues</span><span class="at-v">Français (natif) · Anglais (intermédiaire)</span></div>
+            <div class="at-row"><span class="at-k">Statut</span><span class="at-v">Ouvert aux stages & opportunités</span></div>
+          </div>
+        </div>
+        <div class="timeline-card r d2">
+          <p class="tc-title">Parcours académique</p>
+          <div class="tl-item">
+            <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div class="tl-right">
+              <p class="tl-yr">2025 — 2026</p>
+              <p class="tl-name">Master 2 en Finance Digitale</p>
+              <p class="tl-org">ESMT · Dakar, Sénégal</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div class="tl-right">
+              <p class="tl-yr">2024 — 2025</p>
+              <p class="tl-name">Master 1 en Management de la Transformation Digitale</p>
+              <p class="tl-org">ESMT · Dakar, Sénégal</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div class="tl-right">
+              <p class="tl-yr">2019 — 2023</p>
+              <p class="tl-name">Licence en Mathématiques Informatiques</p>
+              <p class="tl-org">FAST-UAC · Abomey-Calavi, Bénin</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-left"><div class="tl-dot"></div></div>
+            <div class="tl-right">
+              <p class="tl-yr">2025 — 2026</p>
+              <p class="tl-name">Lead Produit & Cas d'usage</p>
+              <p class="tl-org">Data Afrique Hub — Département Projets & Innovation</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ EXPERTISE ══════════ -->
+  <section id="expertise">
+    <div class="wrap">
+      <span class="eyebrow r">Expertise</span>
+      <h2 class="r d1">Ce que je maîtrise</h2>
+      <p class="lead r d2">Des compétences à l'intersection de la finance, de la data et du développement technologique.</p>
+      <div class="expertise-grid">
+        <div class="ex-card r d1">
+          <span class="ex-icon">📊</span>
+          <p class="ex-cat">Finance & FinTech</p>
+          <ul class="ex-list">
+            <li>Analyse données financières</li>
+            <li>Monétique & Mobile Money</li>
+            <li>Produits bancaires</li>
+            <li>Processus & conformité</li>
+            <li>Investissement financier</li>
+          </ul>
+        </div>
+        <div class="ex-card r d2">
+          <span class="ex-icon">🔬</span>
+          <p class="ex-cat">Data Science & ML</p>
+          <ul class="ex-list">
+            <li>Python (Pandas, Scikit-learn)</li>
+            <li>Machine Learning</li>
+            <li>Power BI · KNIME</li>
+            <li>Excel avancé</li>
+            <li>Data Engineering / ETL</li>
+          </ul>
+        </div>
+        <div class="ex-card r d3">
+          <span class="ex-icon">🗄️</span>
+          <p class="ex-cat">Bases de données</p>
+          <ul class="ex-list">
+            <li>SQL · PostgreSQL</li>
+            <li>MongoDB (NoSQL)</li>
+            <li>Apache NiFi</li>
+            <li>Datawarehouse</li>
+            <li>Pipeline ETL hybride</li>
+          </ul>
+        </div>
+        <div class="ex-card r d4">
+          <span class="ex-icon">💻</span>
+          <p class="ex-cat">Développement Web</p>
+          <ul class="ex-list">
+            <li>HTML · CSS · JavaScript</li>
+            <li>React · Laravel</li>
+            <li>API REST · Flutter</li>
+            <li>Gestion de projet (Scrum)</li>
+            <li>VS Code · Git</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ EXPÉRIENCE ══════════ -->
+  <section id="experience">
+    <div class="wrap">
+      <span class="eyebrow r">Expérience</span>
+      <h2 class="r d1">Parcours professionnel</h2>
+      <p class="lead r d2">Des expériences variées alliant technologie, enseignement et développement commercial.</p>
+      <div class="xp-list">
+
+        <div class="xp-card r d2">
+          <p class="xp-period">Déc. 2025<br>— Jan. 2026</p>
+          <div class="xp-body">
+            <p class="xp-role">Stagiaire Développeur Web</p>
+            <p class="xp-org">AGROBOOST GREEN TECH · Télétravail</p>
+            <ul class="xp-dots">
+              <li>Développement d'une application de gestion de flotte de tracteurs connectés</li>
+              <li>Conception et développement intégral de l'interface d'administration</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="xp-card r d3">
+          <p class="xp-period">2025 — 2026</p>
+          <div class="xp-body">
+            <p class="xp-role">Responsable Partenariats & Développement</p>
+            <p class="xp-org">Club ISOC-ESMT · Dakar, Sénégal</p>
+            <ul class="xp-dots">
+              <li>Recherche et identification de partenaires en phase avec les valeurs de l'ISOC-ESMT</li>
+              <li>Développement stratégique des relations institutionnelles</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="xp-card r d2">
+          <p class="xp-period">2024 — 2025</p>
+          <div class="xp-body">
+            <p class="xp-role">Secrétaire Général</p>
+            <p class="xp-org">Club ISOC-ESMT · Dakar, Sénégal</p>
+            <ul class="xp-dots">
+              <li>Coordination des activités et gestion de projets associatifs</li>
+              <li>Organisation du Hackathon ISOC-ESMT — logistique, communication, recrutement des mentors</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="xp-card r d3">
+          <p class="xp-period">2022 — 2024</p>
+          <div class="xp-body">
+            <p class="xp-role">Enseignant de Mathématiques</p>
+            <p class="xp-org">CEG LOBOZOUNKPA · Abomey-Calavi, Bénin</p>
+            <ul class="xp-dots">
+              <li>Enseignement de l'algèbre, de la géométrie et de l'analyse pour les classes du Collège</li>
+              <li>Gestion de groupes allant jusqu'à 40 élèves, planification rigoureuse des programmes annuels</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="xp-card r d2">
+          <p class="xp-period">2018 — 2019</p>
+          <div class="xp-body">
+            <p class="xp-role">Chargé de Marketing Produit</p>
+            <p class="xp-org">Success Story Group · Cotonou, Bénin</p>
+            <ul class="xp-dots">
+              <li>Promotion stratégique de la gamme de produits de Santé et bien-être</li>
+              <li>Analyse des besoins des consommateurs et appui aux équipes de vente</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROJETS ══════════ -->
+  <section id="projets">
+    <div class="wrap">
+      <span class="eyebrow r">Projets & Réalisations</span>
+      <h2 class="r d1">Ce que j'ai construit</h2>
+      <p class="lead r d2">Des projets concrets en data science, ingénierie des données et développement, appliqués à des problématiques réelles.</p>
+      <div class="proj-list">
+
+        <div class="proj-card r d2">
+          <span class="proj-n">01</span>
+          <div>
+            <div class="proj-tags"><span class="ptag">Machine Learning</span><span class="ptag">Python</span><span class="ptag">Finance</span></div>
+            <p class="proj-title">Modèle ML d'Analyse et Prédiction des Ventes d'un Supermarché</p>
+            <p class="proj-desc">Développement d'un modèle de machine learning pour analyser les tendances de ventes et prédire les performances futures. Application de techniques de feature engineering et de validation croisée.</p>
+          </div>
+          <span class="proj-arrow">↗</span>
+        </div>
+
+        <div class="proj-card r d3">
+          <span class="proj-n">02</span>
+          <div>
+            <div class="proj-tags"><span class="ptag">IA</span><span class="ptag">FinTech</span><span class="ptag">Investissement</span></div>
+            <p class="proj-title">Assistant Intelligent d'Aide à la Décision — Investissement Financier</p>
+            <p class="proj-desc">Conception d'un système d'aide à la décision basé sur l'IA pour accompagner les investisseurs dans leurs choix financiers. Intégration de modèles d'analyse de risque et de recommandation.</p>
+          </div>
+          <span class="proj-arrow">↗</span>
+        </div>
+
+        <div class="proj-card r d2">
+          <span class="proj-n">03</span>
+          <div>
+            <div class="proj-tags"><span class="ptag">Datawarehouse</span><span class="ptag">SQL</span><span class="ptag">Détection fraude</span><span class="ptag">Zindi</span></div>
+            <p class="proj-title">Datawarehouse pour Détection de Fraude — Challenge Zindi / Force-N</p>
+            <p class="proj-desc">Mise en place d'un Datawarehouse stockant des données provenant de sources JSON en vue de construire un modèle de détection de fraude, dans le cadre d'un challenge Zindi organisé par Force-N Sénégal.</p>
+          </div>
+          <span class="proj-arrow">↗</span>
+        </div>
+
+        <div class="proj-card r d3">
+          <span class="proj-n">04</span>
+          <div>
+            <div class="proj-tags"><span class="ptag">ETL</span><span class="ptag">SQL</span><span class="ptag">MongoDB</span><span class="ptag">Apache NiFi</span></div>
+            <p class="proj-title">Pipeline ETL Hybride SQL & MongoDB avec Apache NiFi</p>
+            <p class="proj-desc">Conception et implémentation d'un pipeline ETL hybride (SQL & MongoDB) avec Apache NiFi pour le suivi des notes des étudiants, dans le cadre de la formation chez Force-N Sénégal.</p>
+          </div>
+          <span class="proj-arrow">↗</span>
+        </div>
+
+        <div class="proj-card r d2">
+          <span class="proj-n">05</span>
+          <div>
+            <div class="proj-tags"><span class="ptag">React</span><span class="ptag">Laravel</span><span class="ptag">API REST</span><span class="ptag">Dev Web</span></div>
+            <p class="proj-title">Application de Gestion de Flotte de Tracteurs Connectés</p>
+            <p class="proj-desc">Développement d'une application web complète pour la gestion de flotte lors du stage chez AGROBOOST GREEN TECH. Conception et développement intégral de l'interface d'administration.</p>
+          </div>
+          <span class="proj-arrow">↗</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CERTIFICATIONS ══════════ -->
+  <section id="certifications">
+    <div class="wrap">
+      <span class="eyebrow r">Certifications</span>
+      <h2 class="r d1">Formations continues</h2>
+      <p class="lead r d2">Un investissement constant dans l'apprentissage pour rester à la pointe des technologies data et finance.</p>
+      <div class="cert-grid">
+        <div class="cert-card r d1">
+          <p class="cert-yr">Mai — Oct. 2025</p>
+          <p class="cert-name">Développement Web & Mobile — Niveau Avancé</p>
+          <p class="cert-org">Organisation Internationale de la Francophonie</p>
+        </div>
+        <div class="cert-card r d2">
+          <p class="cert-yr">Août 2025</p>
+          <p class="cert-name">Certificat en Data Science</p>
+          <p class="cert-org">Data Afrique Hub</p>
+        </div>
+        <div class="cert-card r d3">
+          <p class="cert-yr">Juil. 2025</p>
+          <p class="cert-name">Certificat en Data Engineering</p>
+          <p class="cert-org">Force-N Sénégal</p>
+        </div>
+        <div class="cert-card r d1">
+          <p class="cert-yr">Mai 2025</p>
+          <p class="cert-name">Scrum Fundamentals Certified</p>
+          <p class="cert-org">SCRUMstudy</p>
+        </div>
+        <div class="cert-card r d2">
+          <p class="cert-yr">Avr. 2025</p>
+          <p class="cert-name">Introduction à la Science des Données</p>
+          <p class="cert-org">Cisco Networking Academy</p>
+        </div>
+        <div class="cert-card r d3">
+          <p class="cert-yr">Fév. 2025</p>
+          <p class="cert-name">Certificat en Analyse de Données</p>
+          <p class="cert-org">Certificat d'Accomplissement</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CONTACT ══════════ -->
+  <section id="contact">
+    <div class="wrap">
+      <span class="eyebrow r">Contact</span>
+      <h2 class="r d1">Parlons de votre projet</h2>
+      <div class="contact-grid">
+        <div class="r d2">
+          <p>Vous avez un projet en FinTech, data financière ou développement ? Une opportunité de stage ou d'emploi ? Je suis disponible et à l'écoute.</p>
+          <div class="ci-list">
+            <div class="ci-row">
+              <div class="ci-icon">@</div>
+              <div><p class="ci-lbl">Email</p><p class="ci-val">gastondahsounton@gmail.com</p></div>
+            </div>
+            <div class="ci-row">
+              <div class="ci-icon">☏</div>
+              <div><p class="ci-lbl">Téléphone</p><p class="ci-val">+221 77 265 56 46</p></div>
+            </div>
+            <div class="ci-row">
+              <div class="ci-icon">⌖</div>
+              <div><p class="ci-lbl">Localisation</p><p class="ci-val">Grand Dakar, Sénégal</p></div>
+            </div>
+            <div class="ci-row">
+              <div class="ci-icon">🔗</div>
+              <div><p class="ci-lbl">Portfolio</p><p class="ci-val"><a href="https://gastondah.github.io/gastondahassouton/" target="_blank">gastondah.github.io/gastondahassouton</a></p></div>
+            </div>
+          </div>
+          <div class="srow">
+            <a class="sbtn" href="https://www.linkedin.com/in/m%C3%A8gb%C3%A9hou-gaston-dahassouton-542336333/" target="_blank">LinkedIn ↗</a>
+            <a class="sbtn" href="https://github.com/Gastondah" target="_blank">GitHub ↗</a>
+            <a class="sbtn" href="cv_stage_gaston.pdf" download>CV PDF ↓</a>
+          </div>
+        </div>
+        <div class="r d3">
+          <form class="cf" id="cf" novalidate>
+            <div class="cf-row">
+              <div class="fg"><label for="cp">Prénom</label><input id="cp" type="text" placeholder="Votre prénom" required></div>
+              <div class="fg"><label for="cn">Nom</label><input id="cn" type="text" placeholder="Votre nom" required></div>
+            </div>
+            <div class="fg"><label for="ce">Email</label><input id="ce" type="email" placeholder="votre@email.com" required></div>
+            <div class="fg"><label for="cs">Sujet</label><input id="cs" type="text" placeholder="Objet de votre message" required></div>
+            <div class="fg"><label for="cm">Message</label><textarea id="cm" placeholder="Décrivez votre projet ou opportunité..." required></textarea></div>
+            <div class="cf-msg" id="cfMsg"></div>
+            <button type="submit" class="cf-btn" id="cfBtn">Envoyer le message →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <p>© 2025 <a href="#hero">Mègbéhou Gaston DAHASSOUTON</a>. Tous droits réservés.</p>
+      <p>Finance Digitale · Data · FinTech</p>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll
+    const hdr = document.getElementById('hdr');
+    window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', scrollY > 40));
+
+    // Mobile menu
+    const ham = document.getElementById('ham');
+    const mob = document.getElementById('mob');
+    ham.addEventListener('click', () => { ham.classList.toggle('open'); mob.classList.toggle('open'); });
+    function closeM() { ham.classList.remove('open'); mob.classList.remove('open'); }
+
+    // Scroll reveal
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.r').forEach(el => obs.observe(el));
+
+    // Contact form
+    document.getElementById('cf').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn  = document.getElementById('cfBtn');
+      const msg  = document.getElementById('cfMsg');
+      btn.disabled = true; btn.textContent = 'Envoi…';
+      msg.className = 'cf-msg';
+      // Remplacer par fetch vers Formspree / votre API pour les vrais emails
+      setTimeout(() => {
+        msg.textContent = '✓ Message envoyé avec succès. Je vous répondrai très rapidement !';
+        msg.className = 'cf-msg ok';
+        this.reset();
+        btn.disabled = false;
+        btn.textContent = 'Envoyer le message →';
+      }, 1400);
+    });
+  </script>
+</body>
 </html>
