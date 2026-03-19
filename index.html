@@ -881,12 +881,12 @@
         <div class="r d3">
           <form class="cf" id="cf" novalidate>
             <div class="cf-row">
-              <div class="fg"><label for="cp">Prénom</label><input id="cp" type="text" placeholder="Votre prénom" required></div>
-              <div class="fg"><label for="cn">Nom</label><input id="cn" type="text" placeholder="Votre nom" required></div>
+              <div class="fg"><label for="cp">Prénom</label><input id="cp" name="prenom" type="text" placeholder="Votre prénom" required></div>
+              <div class="fg"><label for="cn">Nom</label><input id="cn" name="nom" type="text" placeholder="Votre nom" required></div>
             </div>
-            <div class="fg"><label for="ce">Email</label><input id="ce" type="email" placeholder="votre@email.com" required></div>
-            <div class="fg"><label for="cs">Sujet</label><input id="cs" type="text" placeholder="Objet de votre message" required></div>
-            <div class="fg"><label for="cm">Message</label><textarea id="cm" placeholder="Décrivez votre projet ou opportunité..." required></textarea></div>
+            <div class="fg"><label for="ce">Email</label><input id="ce" name="email" type="email" placeholder="votre@email.com" required></div>
+            <div class="fg"><label for="cs">Sujet</label><input id="cs" name="sujet" type="text" placeholder="Objet de votre message" required></div>
+            <div class="fg"><label for="cm">Message</label><textarea id="cm" name="message" placeholder="Décrivez votre projet ou opportunité..." required></textarea></div>
             <div class="cf-msg" id="cfMsg"></div>
             <button type="submit" class="cf-btn" id="cfBtn">Envoyer le message →</button>
           </form>
@@ -922,21 +922,37 @@
     document.querySelectorAll('.r').forEach(el => obs.observe(el));
 
     // Contact form
-    document.getElementById('cf').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const btn  = document.getElementById('cfBtn');
-      const msg  = document.getElementById('cfMsg');
-      btn.disabled = true; btn.textContent = 'Envoi…';
-      msg.className = 'cf-msg';
-      // Remplacer par fetch vers Formspree / votre API pour les vrais emails
-      setTimeout(() => {
-        msg.textContent = '✓ Message envoyé avec succès. Je vous répondrai très rapidement !';
+    document.getElementById('cf').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn  = document.getElementById('cfBtn');
+    const msg  = document.getElementById('cfMsg');
+
+    btn.disabled = true;
+    btn.textContent = 'Envoi…';
+    msg.className = 'cf-msg';
+
+    try {
+      const response = await fetch('https://formspree.io/f/mvzwlnlg', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(this)
+      });
+
+      if (response.ok) {
+        msg.textContent = '✓ Message envoyé ! Je vous répondrai très rapidement.';
         msg.className = 'cf-msg ok';
         this.reset();
-        btn.disabled = false;
-        btn.textContent = 'Envoyer le message →';
-      }, 1400);
-    });
+      } else {
+        throw new Error();
+      }
+    } catch {
+      msg.textContent = '✗ Une erreur est survenue. Écrivez-moi directement par email.';
+      msg.className = 'cf-msg err';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Envoyer le message →';
+    }
+  });
   </script>
 </body>
 </html>
